@@ -1,7 +1,7 @@
 Config = Config or {}
 Config.Debug = false
 
-Config.Locale = TranslationsEN -- This must match one of the variables in your locales/x.lua
+Config.Locale = TranslationsPT -- This must match one of the variables in your locales/x.lua
 Lang = function(phrase)
     if not Config.Locale then print("^1YOU MESSED UP THE TRANSLATION IMPORT") end
     return Config.Locale[phrase] or phrase
@@ -241,7 +241,7 @@ Config.Trader = {
     requireToken = false,
     model = 'csb_paige',
     animation = 'WORLD_HUMAN_SEAT_WALL_TABLET',
-    location = vector4(852.58, -1543.87, 29.12, 230.19),
+    location = vec4(856.43, -1545.63, 29.11, 244.43),
     moneyType = 'cash', -- cash/bank/crypto
     -- cryptoType = 'cdc', -- name of your crypto
     racingUserCosts = {

@@ -12,6 +12,7 @@ ui_page {
 
 shared_scripts {
     'locales/en.lua',
+    'locales/pt-br.lua',
     'config.lua',
     '@ox_lib/init.lua',
     '@qbx_core/modules/playerdata.lua'

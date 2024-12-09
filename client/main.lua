@@ -1949,7 +1949,7 @@ local function createQbInput(fobType, purchaseType)
         }
     end
     local dialog = exports['qb-input']:ShowInput({
-        header = 'Creating a [' .. fobType .. '] type user',
+        header = 'Criando um [' .. fobType .. ']',
         submitText = 'Submit',
         inputs = inputs
     })
@@ -2032,7 +2032,7 @@ if Config.Trader.active then
 
         local currency
         if trader.moneyType == 'cash' or trader.moneyType == 'bank' then
-            currency = '$'
+            currency = 'R$'
         else
             currency = Config.Options.cryptoType
         end
@@ -2044,7 +2044,7 @@ if Config.Trader.active then
                 type = "client",
                 event = "cw-racingapp:client:openFobInput",
                 icon = "fas fa-flag-checkered",
-                label = 'Create a new ' .. authName .. ' user (' .. currency .. trader.racingUserCosts[authName] .. ')',
+                label = 'Criar um novo ' .. authName .. ' (' .. currency .. trader.racingUserCosts[authName] .. ')',
                 purchaseType = trader,
                 fobType = authName,
                 canInteract = function()
@@ -2096,7 +2096,7 @@ if Config.Laptop.active then
         local laptop = Config.Laptop
         local currency
         if laptop.moneyType == 'cash' or laptop.moneyType == 'bank' then
-            currency = '$'
+            currency = 'R$'
         else
             currency = Config.Options.cryptoType
         end
@@ -2570,7 +2570,7 @@ RegisterNUICallback('UiGetPermissionedUserTypes', function(_, cb)
 
     local currency
     if Config.Laptop.moneyType == 'cash' or Config.Laptop.moneyType == 'money' or Config.Laptop.moneyType == 'bank' then
-        currency = '$'
+        currency = 'R$'
     else
         currency = Config.Options.cryptoType
     end
