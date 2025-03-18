@@ -59,7 +59,20 @@
                   v-model="setupData.maxClass"
                 ></v-select>
               </v-col>
-              <v-col cols="12" sm="6">
+            </v-row>
+            <v-row justify="center">
+              <v-col cols="12" sm="4">
+                <v-switch
+                  color="primary"
+                  class="reverse-switch"
+                  :label="translate('host_silent')"
+                  v-model="setupData.silent"
+                  density="compact"
+                  hide-details
+                >
+                </v-switch>
+              </v-col>
+              <v-col cols="12" sm="4">
                 <v-switch
                   color="primary"
                   v-if="globalStore.baseData.data.auth.startReversed"
@@ -71,14 +84,14 @@
                 >
                 </v-switch>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="4">
                 <v-switch
-                  color="primary"
-                  class="reverse-switch"
-                  :label="translate('first_person')"
-                  v-model="setupData.firstPerson"
-                  density="compact"
-                  hide-details
+                color="primary"
+                class="reverse-switch"
+                :label="translate('first_person')"
+                v-model="setupData.firstPerson"
+                density="compact"
+                hide-details
                 >
                 </v-switch>
               </v-col>
@@ -119,8 +132,10 @@
                 <v-select
                   :label="translate('currency')"
                   density="compact"
-                  :items="['cash', 'bank', 'crypto']"
+                  :items="globalStore.baseData.data.participationCurrencyOptions"
                   v-model="setupData.participationCurrency"
+                  item-title="title"
+                  item-value="value"
                 ></v-select>
               </v-col>
               <v-col
@@ -206,7 +221,8 @@ const setupData = ref({
   reversed: false,
   firstPerson: false,
   participationMoney: 0,
-  participationCurrency: "cash",
+  participationCurrency: globalStore.baseData.data.participationCurrencyOptions[0].value,
+  silent: false,
 });
 
 const handleClose = () => {
@@ -231,6 +247,7 @@ const handleConfirm = async () => {
     participationCurrency: setupData.value.participationCurrency,
     reversed: setupData.value.reversed,
     firstPerson: setupData.value.firstPerson,
+    silent: setupData.value.silent,
   };
 
   const res = await api.post("UiSetupRace", JSON.stringify(data));
