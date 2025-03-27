@@ -387,11 +387,11 @@ local function giveSplit(src, racers, position, pot, racerName)
     elseif racers == 3 and (position == 1 or position == 2) then
         total = Config.Splits['three'][position] * pot
         if UseDebug then print('Payout for ', position, total) end
-    elseif racers > 3 then
+    elseif racers > 3 and Config.Splits['more'][position] then
         total = Config.Splits['more'][position] * pot
         if UseDebug then print('Payout for ', position, total) end
     else
-        if UseDebug then print('No one got a payout') end
+        if UseDebug then print('Racer finishing at postion', position ,' will not recieve a payout') end
     end
     if total > 0 then
         handleAddMoney(src, Config.Payments.racing, total, racerName)
@@ -458,6 +458,10 @@ RegisterNetEvent('cw-racingapp:server:finishPlayer',
         local playersFinished = 0
         local amountOfRacers = 0
         local reversed = Tracks[raceData.RaceId].Reversed
+    
+        if UseDebug then
+            print('^3=== Finishing Racer: '..racerName..' ===^0')
+        end
 
         local bestLapDef
         if totalLaps < 2 then
@@ -623,6 +627,11 @@ RegisterNetEvent('cw-racingapp:server:finishPlayer',
             NotFinished[raceData.RaceId] = nil
             Tracks[raceData.RaceId].MaxClass = nil
         end
+
+        if UseDebug then
+            print('^2/=/ Finished Racer: '..racerName..' /=/^0')
+        end
+
     end)
 
 RegisterNetEvent('cw-racingapp:server:createTrack', function(RaceName, RacerName, Checkpoints)
@@ -996,7 +1005,7 @@ RegisterServerCallback('cw-racingapp:server:setupRace', function(source, setupDa
 end)
 
 -- AUTOMATED RACES SETUP
-local function GenerateAutomatedRace()
+local function generateAutomatedRace()
     local race = Config.AutomatedRaces[math.random(1, #Config.AutomatedRaces)]
     if race == nil or race.trackId == nil then
         if UseDebug then print('Race Id for generated track was nil, your Config might be incorrect') end
@@ -1033,7 +1042,7 @@ if Config.AutomatedOptions and Config.AutomatedRaces then
         end
         while true do
             if not UseDebug then Wait(Config.AutomatedOptions.timeBetweenRaces) else Wait(1000) end
-            GenerateAutomatedRace()
+            generateAutomatedRace()
             Wait(Config.AutomatedOptions.timeBetweenRaces)
         end
     end)
